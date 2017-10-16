@@ -28,7 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.tmrGameLoop = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
+            // 
+            // tmrGameLoop
+            // 
+            this.tmrGameLoop.Enabled = true;
+            this.tmrGameLoop.Interval = 25;
+            this.tmrGameLoop.Tick += new System.EventHandler(this.tmrGameLoop_Tick);
             // 
             // MainForm
             // 
@@ -37,11 +45,14 @@
             this.ClientSize = new System.Drawing.Size(1008, 729);
             this.Name = "MainForm";
             this.Text = "PGE";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer tmrGameLoop;
     }
 }
 
