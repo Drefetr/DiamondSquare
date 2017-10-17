@@ -18,9 +18,9 @@ namespace PGE
         Graphics frontCanvas;
 
         /// <summary>
-        /// Player character (PC) Sprite.
+        /// Terrain TileMap.
         /// </summary>
-        Sprite playerCharacter;
+        TileMap terrainMap;
 
         public MainForm()
         {
@@ -32,18 +32,16 @@ namespace PGE
             // Instantiate back/front buffers:
             frontCanvas = CreateGraphics();
 
-            // Instantiate PC sprite:
-            playerCharacter = 
-                new Sprite(
-                    frontCanvas, 
-                    "Resources/Spritesheets/pc.bmp"
-                );
+            // Instantiate terrain TileSet:
+            TileSet terrainTileSet = new TileSet("Resources/Tiles");
+
+            // Instantiate terrain TileMap:
+            terrainMap = new TileMap(terrainTileSet, 128, 128);
         }
 
         private void tmrGameLoop_Tick(object sender, EventArgs e)
         {
-            // Draw PC sprite:
-            playerCharacter.Draw();
+            terrainMap.Draw(frontCanvas);
         }
     }
 }
