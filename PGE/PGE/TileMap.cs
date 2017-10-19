@@ -60,7 +60,7 @@ namespace PGE
             _width = mapWidth;
         }
 
-        public void Draw(Graphics canvas)
+        public void Draw()
         {
         }
     }

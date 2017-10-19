@@ -20,29 +20,39 @@ namespace PGE
         private TileMap terrainMap;
 
         /// <summary>
+        /// Viewport.
+        /// </summary>
+        private Viewport viewport;
+
+        /// <summary>
         /// Default constructor.
         /// </summary>
         public GameManager(Graphics g)
         {
+            canvas = g;
+
             // Instantiate terrain TileSet:
             TileSet terrainTileSet = new TileSet("Resources/Tiles");
 
             // Instantiate terrain TileMap:
             terrainMap = new TileMap(terrainTileSet, 128, 128);
+
+            // Instantiate Viewport:
+            viewport = new Viewport(g, terrainMap);
         }
 
         /// <summary>
         /// Draw to graphics context `canvas`.
         /// </summary>
-        public void draw()
+        public void Draw()
         {
-            terrainMap.Draw(canvas);
+            viewport.Draw();
         }
 
         /// <summary>
         /// Update state.
         /// </summary>
-        public void update()
+        public void Update()
         {
 
         }

@@ -38,8 +38,8 @@ namespace PGE
 
         private void tmrGameLoop_Tick(object sender, EventArgs e)
         {
-            gameManager.update();
-            gameManager.draw();
+            gameManager.Update();
+            gameManager.Draw();
         }
     }
 }
