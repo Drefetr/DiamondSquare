@@ -18,9 +18,9 @@ namespace PGE
         Graphics frontCanvas;
 
         /// <summary>
-        /// Terrain TileMap.
+        /// GameManager.
         /// </summary>
-        TileMap terrainMap;
+        GameManager gameManager;
 
         public MainForm()
         {
@@ -32,16 +32,14 @@ namespace PGE
             // Instantiate back/front buffers:
             frontCanvas = CreateGraphics();
 
-            // Instantiate terrain TileSet:
-            TileSet terrainTileSet = new TileSet("Resources/Tiles");
-
-            // Instantiate terrain TileMap:
-            terrainMap = new TileMap(terrainTileSet, 128, 128);
+            // Instantiate GameManager:
+            gameManager = new GameManager(frontCanvas);
         }
 
         private void tmrGameLoop_Tick(object sender, EventArgs e)
         {
-            terrainMap.Draw(frontCanvas);
+            gameManager.update();
+            gameManager.draw();
         }
     }
 }
