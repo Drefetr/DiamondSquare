@@ -33,7 +33,7 @@ namespace PGE
             frontCanvas = CreateGraphics();
 
             // Instantiate GameManager:
-            gameManager = new GameManager(frontCanvas);
+            gameManager = new GameManager(frontCanvas, Width, Height);
         }
 
         private void tmrGameLoop_Tick(object sender, EventArgs e)

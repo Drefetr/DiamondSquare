@@ -27,7 +27,7 @@ namespace PGE
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public GameManager(Graphics g)
+        public GameManager(Graphics g, int width, int height)
         {
             canvas = g;
 
@@ -35,12 +35,11 @@ namespace PGE
             TileSet terrainTileSet = new TileSet("Resources/Tiles");
 
             // Instantiate terrain TileMap:
-            terrainMap = new TileMap(terrainTileSet, 128, 128);
+            int mapHeight = height / 32;
+            int mapWidth = width / 32;
+            terrainMap = new TileMap(terrainTileSet, mapWidth, mapHeight);
 
             // Instantiate Viewport:
-            int height = 768;
-            int width = 1024;
-
             viewport = new Viewport(g, terrainMap, width, height);
         }
 

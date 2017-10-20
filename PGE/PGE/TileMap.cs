@@ -18,6 +18,11 @@ namespace PGE
         private int _height;
 
         /// <summary>
+        /// 
+        /// </summary>
+        private int[,] map;
+
+        /// <summary>
         /// Source TileSet.
         /// </summary>
         private TileSet tileSet;
@@ -56,8 +61,9 @@ namespace PGE
         public TileMap(TileSet ts, int mapWidth, int mapHeight)
         {
             _height = mapHeight;
-            tileSet = ts;
             _width = mapWidth;
+            map = new int[mapHeight, mapWidth];
+            tileSet = ts;
         }
 
         /// <summary>
@@ -68,7 +74,7 @@ namespace PGE
         /// <returns></returns>
         public Bitmap GetCellImage(int column, int row)
         {
-            Bitmap cellImage = new Bitmap("Resources/Tiles/1.bmp");
+            Bitmap cellImage = tileSet.GetTileBitmap(1);
             return cellImage;
         }
     }
