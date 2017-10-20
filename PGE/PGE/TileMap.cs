@@ -60,8 +60,16 @@ namespace PGE
             _width = mapWidth;
         }
 
-        public void Draw()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="column"></param>
+        /// <param name="row"></param>
+        /// <returns></returns>
+        public Bitmap GetCellImage(int column, int row)
         {
+            Bitmap cellImage = new Bitmap("Resources/Tiles/1.bmp");
+            return cellImage;
         }
     }
 }

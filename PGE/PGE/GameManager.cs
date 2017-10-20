@@ -38,7 +38,10 @@ namespace PGE
             terrainMap = new TileMap(terrainTileSet, 128, 128);
 
             // Instantiate Viewport:
-            viewport = new Viewport(g, terrainMap);
+            int height = 768;
+            int width = 1024;
+
+            viewport = new Viewport(g, terrainMap, width, height);
         }
 
         /// <summary>
