@@ -91,7 +91,7 @@ namespace PGE
                     int y = ((row - topRow) * 32) - yOffset;
 
                     // Fetch & Draw Tile's image at Point(`x`, `y`):
-                    Bitmap cellImage = terrainMap.GetCellImage(column, row);
+                    Bitmap cellImage = terrainMap.GetCellBitmap(column, row);
                     canvas.DrawImage(cellImage, x, y);
                 }
             }

@@ -72,9 +72,9 @@ namespace PGE
         /// <param name="column"></param>
         /// <param name="row"></param>
         /// <returns></returns>
-        public Bitmap GetCellImage(int column, int row)
+        public Bitmap GetCellBitmap(int column, int row)
         {
-            Bitmap cellImage = tileSet.GetTileBitmap(1);
+            Bitmap cellImage = tileSet.GetTileBitmap("12");
             return cellImage;
         }
     }
