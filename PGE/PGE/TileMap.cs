@@ -58,11 +58,11 @@ namespace PGE
         /// Default constructor.
         /// </summary>
         /// <param name="ts">Source TileSet</param>
-        public TileMap(TileSet ts, int mapWidth, int mapHeight)
+        public TileMap(TileSet ts, int[,] tiles, int mapWidth, int mapHeight)
         {
             _height = mapHeight;
             _width = mapWidth;
-            map = new int[mapHeight, mapWidth];
+            map = tiles;
             tileSet = ts;
         }
 
@@ -74,7 +74,8 @@ namespace PGE
         /// <returns></returns>
         public Bitmap GetCellBitmap(int column, int row)
         {
-            Bitmap cellImage = tileSet.GetTileBitmap("12");
+            int tileType = map[row, column];
+            Bitmap cellImage = tileSet.GetTileBitmap("" + tileType);
             return cellImage;
         }
     }

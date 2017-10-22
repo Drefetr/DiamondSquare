@@ -77,10 +77,10 @@ namespace PGE
             int bottomRow = topRow + rows;
             int rightColumn = leftColumn + columns;
 
-            for (int row = topRow; row <= bottomRow; row++)
+            for (int row = topRow; row < bottomRow; row++)
             {
                 // Iterate over each column in player-visible area:
-                for (int column = leftColumn; column <= rightColumn; column++)
+                for (int column = leftColumn; column < rightColumn; column++)
                 {
                     // Calculate offset(s) for smooth-scrolling:
                     int xOffset = 0;

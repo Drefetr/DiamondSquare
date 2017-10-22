@@ -34,10 +34,15 @@ namespace PGE
             // Instantiate terrain TileSet:
             TileSet terrainTileSet = new TileSet("Resources/Tiles");
 
-            // Instantiate terrain TileMap:
+            // Fetch next procedural map:
             int mapHeight = height / 32;
             int mapWidth = width / 32;
-            terrainMap = new TileMap(terrainTileSet, mapWidth, mapHeight);
+
+            int[,] map = MapGenerator.NextMap(mapWidth, mapHeight);
+
+            // Instantiate terrain TileMap:
+            terrainMap 
+                = new TileMap(terrainTileSet, map, mapWidth, mapHeight);
 
             // Instantiate Viewport:
             viewport = new Viewport(g, terrainMap, width, height);
