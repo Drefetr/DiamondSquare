@@ -63,6 +63,14 @@ namespace PGE
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public void MoveViewport()
+        {
+            viewport.Left += 32;
+        }
+
+        /// <summary>
         /// Update state.
         /// </summary>
         public void Update()

@@ -42,6 +42,19 @@ namespace PGE
             }
         }
 
+        public int Left
+        {
+            get
+            {
+                return location.X;
+            }
+
+            set
+            {
+                location.X = value;
+            }            
+        }
+
         public int Width
         {
             get

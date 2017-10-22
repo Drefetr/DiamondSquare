@@ -32,6 +32,11 @@ namespace PGE
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainForm_Load(object sender, EventArgs e)
         {
             // Instantiate back/front buffers:
@@ -44,10 +49,25 @@ namespace PGE
                 = new GameManager(random, frontCanvas, Width, Height);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tmrGameLoop_Tick(object sender, EventArgs e)
         {
             gameManager.Update();
             gameManager.Draw();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            gameManager.MoveViewport();
         }
     }
 }

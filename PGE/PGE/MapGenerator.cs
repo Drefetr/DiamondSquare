@@ -48,9 +48,35 @@ namespace PGE
             return average;
         }
 
-        private static int[,] DiamondSquare(int[,] heightMap, int stepSize, double scale)
+        private static int[,] DiamondSquare(Random r, int[,] heightMap, int stepSize, double scale, int mapWidth, int mapHeight)
         {
+            int halfStep = stepSize / 2;
+            int maxXTile = mapWidth - 16;
+            int maxYTile = mapHeight - 12;
 
+            for (int x = 16 + halfStep; x < (maxXTile + halfStep); x += stepSize)
+            {
+                for (int y = 12 + halfStep; y < (maxYTile + halfStep); y += stepSize)
+                {
+                    int square = AverageSquare(heightMap, x, y, stepSize);
+                    square += Convert.ToInt32(r.Next(0, 2) * scale);
+                    heightMap[x, y] = square;
+                }
+            }
+
+            for (int x = 16; x < maxXTile; x += stepSize)
+            {
+                for (int y = 12; y < maxYTile; y += stepSize)
+                {
+                    int diamondOne = AverageDiamond(heightMap, x + halfStep, y, stepSize);
+                    diamondOne += Convert.ToInt32(r.Next(0, 2) * scale);
+                    heightMap[x + halfStep, y] = diamondOne;
+
+                    int diamondTwo = AverageDiamond(heightMap, x, y + halfStep, stepSize);
+                    diamondTwo += Convert.ToInt32(r.Next(0, 2) * scale);
+                    heightMap[x, y + halfStep] = diamondTwo;
+                }
+            }
 
             return heightMap;
         }
@@ -64,49 +90,41 @@ namespace PGE
         /// <returns></returns>
         public static int[,] NextMap(Random r, int mapWidth, int mapHeight)
         {
+            // Must be a power of 2:
+            int stepSize = 16;
+
+            // Noise-coefficient: 
+            double scale = 4.2;
+
             int[,] heightMap = new int[mapHeight, mapWidth];
             int[,] map = new int[mapHeight, mapWidth];
 
-            // Fill map w/ random tiles:
-            for (int row = 0; row < mapHeight; row++)
+            while (stepSize > 1)
             {
-                for (int column = 0; column < mapWidth; column++)
+                DiamondSquare(r, heightMap, stepSize, scale, mapWidth, mapHeight);
+                stepSize /= 2;
+                scale /= 2.0;
+            }
+
+            // Fill Map:
+            for (int j = 0; j < mapHeight; j++)
+            {
+                for (int i = 0; i < mapWidth; i++)
                 {
-                    map[row, column] = r.Next(10, 13);
+                    int tileAltitude = heightMap[j, i];
+                    int tileType = 0;
+
+                    if (tileAltitude >= 2)
+                        tileType = 1;
+
+                    if (tileAltitude >= 4)
+                        tileType = 2;
+
+                    map[j, i] = tileType;
                 }
             }
 
-            int scale = 4;
-            int stepSize = 4;
-            int halfStep = stepSize / 2;
-            int maxXTile = mapWidth - 16;
-            int maxYTile = mapHeight - 12;
-
-            for (int x = 16 + halfStep; x < (maxXTile + halfStep); x += stepSize)
-            {
-                for (int y = 12 + halfStep; y < (maxYTile + halfStep); y += stepSize)
-                {
-                    int square = AverageSquare(heightMap, x, y, stepSize);
-                    square += r.Next(-1, 2) * scale;
-                    heightMap[x, y] = square;
-                }
-            }
-
-            for (int x = 16; x < maxXTile; x += stepSize)
-            {
-                for (int y = 12; y < maxYTile; y += stepSize)
-                {
-                    int diamondOne = AverageDiamond(heightMap, x + halfStep, y, stepSize);
-                    diamondOne += r.Next(-1, 2) * scale;
-                    heightMap[x + halfStep, y] = diamondOne;
-
-                    int diamondTwo = AverageDiamond(heightMap, x, y + halfStep, stepSize);
-                    diamondTwo += r.Next(-1, 2) * scale;
-                    heightMap[x, y + halfStep] = diamondTwo;
-                }
-            }
-
-            return heightMap;
+            return map;
         }
     }
 }
