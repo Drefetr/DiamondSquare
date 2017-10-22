@@ -6,10 +6,21 @@ using System.Threading.Tasks;
 
 namespace PGE
 {
+    /// <summary>
+    /// 
+    /// </summary>
     class MapGenerator
     {
-        public static int[,] NextMap(int mapWidth, int mapHeight)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="mapWidth"></param>
+        /// <param name="mapHeight"></param>
+        /// <returns></returns>
+        public static int[,] NextMap(Random r, int mapWidth, int mapHeight)
         {
+            int[,] heightMap = new int[mapHeight, mapWidth];
             int[,] map = new int[mapHeight, mapWidth];
 
             // Fill map w/ random tiles:
@@ -17,7 +28,7 @@ namespace PGE
             {
                 for (int column = 0; column < mapWidth; column++)
                 {
-                    map[row, column] = 12;
+                    map[row, column] = r.Next(10, 13);
                 }
             }
 

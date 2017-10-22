@@ -22,6 +22,11 @@ namespace PGE
         /// </summary>
         GameManager gameManager;
 
+        /// <summary>
+        /// Seeded random generation.
+        /// </summary>
+        Random random;
+
         public MainForm()
         {
             InitializeComponent();
@@ -32,8 +37,11 @@ namespace PGE
             // Instantiate back/front buffers:
             frontCanvas = CreateGraphics();
 
+            random = new Random(420);
+
             // Instantiate GameManager:
-            gameManager = new GameManager(frontCanvas, Width, Height);
+            gameManager 
+                = new GameManager(random, frontCanvas, Width, Height);
         }
 
         private void tmrGameLoop_Tick(object sender, EventArgs e)

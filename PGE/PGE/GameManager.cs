@@ -15,6 +15,11 @@ namespace PGE
         private Graphics canvas;
 
         /// <summary>
+        /// Seeded random generator.
+        /// </summary>
+        private Random random;
+
+        /// <summary>
         /// Terrain TileMap.
         /// </summary>
         private TileMap terrainMap;
@@ -27,9 +32,10 @@ namespace PGE
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public GameManager(Graphics g, int width, int height)
+        public GameManager(Random r, Graphics g, int width, int height)
         {
             canvas = g;
+            random = r;
 
             // Instantiate terrain TileSet:
             TileSet terrainTileSet = new TileSet("Resources/Tiles");
@@ -38,7 +44,7 @@ namespace PGE
             int mapHeight = height / 32;
             int mapWidth = width / 32;
 
-            int[,] map = MapGenerator.NextMap(mapWidth, mapHeight);
+            int[,] map = MapGenerator.NextMap(r, mapWidth, mapHeight);
 
             // Instantiate terrain TileMap:
             terrainMap 
