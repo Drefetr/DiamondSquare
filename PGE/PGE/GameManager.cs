@@ -67,7 +67,8 @@ namespace PGE
         /// </summary>
         public void MoveViewport()
         {
-            viewport.Left += 32;
+            viewport.Left += Conf.TileWidth;
+            viewport.Top += Conf.TileHeight;
         }
 
         /// <summary>

@@ -55,6 +55,19 @@ namespace PGE
             }            
         }
 
+        public int Top
+        {
+            get
+            {
+                return location.Y;
+            }
+
+            set
+            {
+                location.Y = value;
+            }
+        }
+
         public int Width
         {
             get
