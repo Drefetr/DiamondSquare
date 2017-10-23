@@ -13,6 +13,16 @@ namespace PGE
     public partial class MainForm : Form
     {
         /// <summary>
+        /// 
+        /// </summary>
+        Graphics backCanvas;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Bitmap backImage;
+
+        /// <summary>
         /// Front-buffer.
         /// </summary>
         Graphics frontCanvas;
@@ -41,12 +51,14 @@ namespace PGE
         {
             // Instantiate back/front buffers:
             frontCanvas = CreateGraphics();
+            backImage = new Bitmap(Width, Height);
+            backCanvas = Graphics.FromImage(backImage);
 
             random = new Random(420);
 
             // Instantiate GameManager:
             gameManager 
-                = new GameManager(random, frontCanvas, Width, Height);
+                = new GameManager(random, backCanvas, Width, Height);
         }
 
         /// <summary>
@@ -58,6 +70,9 @@ namespace PGE
         {
             gameManager.Update();
             gameManager.Draw();
+
+            // Blit buffer(s):
+            frontCanvas.DrawImage(backImage, 0, 0);
         }
 
         /// <summary>
