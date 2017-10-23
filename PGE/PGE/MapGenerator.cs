@@ -59,7 +59,7 @@ namespace PGE
                 for (int y = 12 + halfStep; y < (maxYTile + halfStep); y += stepSize)
                 {
                     int square = AverageSquare(heightMap, x, y, stepSize);
-                    square += Convert.ToInt32(r.Next(0, 2) * scale);
+                    square += Convert.ToInt32(r.Next(0, 100) * scale);
                     heightMap[x, y] = square;
                 }
             }
@@ -69,11 +69,11 @@ namespace PGE
                 for (int y = 12; y < maxYTile; y += stepSize)
                 {
                     int diamondOne = AverageDiamond(heightMap, x + halfStep, y, stepSize);
-                    diamondOne += Convert.ToInt32(r.Next(0, 2) * scale);
+                    diamondOne += Convert.ToInt32(r.Next(0, 100) * scale);
                     heightMap[x + halfStep, y] = diamondOne;
 
                     int diamondTwo = AverageDiamond(heightMap, x, y + halfStep, stepSize);
-                    diamondTwo += Convert.ToInt32(r.Next(0, 2) * scale);
+                    diamondTwo += Convert.ToInt32(r.Next(0, 100) * scale);
                     heightMap[x, y + halfStep] = diamondTwo;
                 }
             }
@@ -90,37 +90,52 @@ namespace PGE
         /// <returns></returns>
         public static int[,] NextMap(Random r, int mapWidth, int mapHeight)
         {
-            // Must be a power of 2:
-            int stepSize = 16;
-
-            // Noise-coefficient: 
-            double scale = 4.2;
-
             int[,] heightMap = new int[mapHeight, mapWidth];
             int[,] map = new int[mapHeight, mapWidth];
 
-            while (stepSize > 1)
+            for (int k = 0; k < 1; k++)
             {
-                DiamondSquare(r, heightMap, stepSize, scale, mapWidth, mapHeight);
-                stepSize /= 2;
-                scale /= 2.0;
-            }
+                // Must be a power of 2:
+                int stepSize = 16;
 
-            // Fill Map:
-            for (int j = 0; j < mapHeight; j++)
-            {
-                for (int i = 0; i < mapWidth; i++)
+                // Noise-coefficient: 
+                double scale = 0.42;
+
+                while (stepSize > 1)
                 {
-                    int tileAltitude = heightMap[j, i];
-                    int tileType = 0;
+                    DiamondSquare(r, heightMap, stepSize, scale, mapWidth, mapHeight);
+                    stepSize /= 2;
+                    scale /= 4.0;
+                }
 
-                    if (tileAltitude >= 2)
-                        tileType = 1;
+                // Fill Map:
+                for (int j = 0; j < mapHeight; j++)
+                {
+                    for (int i = 0; i < mapWidth; i++)
+                    {
+                        int tileAltitude = heightMap[j, i];
+                        int tileType = 0;
 
-                    if (tileAltitude >= 4)
-                        tileType = 2;
+                        if (tileAltitude >= 10)
+                            tileType = 1; // Sea.
 
-                    map[j, i] = tileType;
+                        if (tileAltitude >= 15)
+                            tileType = 2; // Shore.
+
+                        if (tileAltitude >= 20)
+                            tileType = 10; // Swamp.
+
+                        if (tileAltitude >= 25)
+                            tileType = 20; // Grass.
+
+                        if (tileAltitude >= 30)
+                            tileType = 30;
+
+                        if (tileAltitude >= 40)
+                            tileType = 40;
+
+                        map[j, i] = tileType;
+                    }
                 }
             }
 

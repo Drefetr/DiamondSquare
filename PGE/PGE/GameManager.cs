@@ -41,8 +41,8 @@ namespace PGE
             TileSet terrainTileSet = new TileSet("Resources/Tiles");
 
             // Fetch next procedural map:
-            int mapHeight = 1024;
-            int mapWidth = 1024;
+            int mapHeight = 1025;
+            int mapWidth = 1025;
 
             int[,] map = MapGenerator.NextMap(r, mapWidth, mapHeight);
 
