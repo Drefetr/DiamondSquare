@@ -41,8 +41,8 @@ namespace PGE
             TileSet terrainTileSet = new TileSet("Resources/Tiles");
 
             // Fetch next procedural map:
-            int mapHeight = 256;
-            int mapWidth = 256;
+            int mapHeight = 1024;
+            int mapWidth = 1024;
 
             int[,] map = MapGenerator.NextMap(r, mapWidth, mapHeight);
 
@@ -65,10 +65,30 @@ namespace PGE
         /// <summary>
         /// 
         /// </summary>
-        public void MoveViewport()
+        public void MoveViewport(EDirection direction)
         {
-            viewport.Left += Conf.TileWidth;
-            viewport.Top += Conf.TileHeight;
+            switch (direction)
+            {
+                case EDirection.NORTH:
+                    // North:
+                    viewport.Top -= Conf.TileHeight;
+                    break;
+
+                case EDirection.WEST:
+                    // West:
+                    viewport.Left -= Conf.TileWidth;
+                    break;
+
+                case EDirection.SOUTH:
+                    // South:
+                    viewport.Top += Conf.TileWidth;
+                    break;
+
+                case EDirection.EAST:
+                    // East:
+                    viewport.Left += Conf.TileWidth;
+                    break;
+            }
         }
 
         /// <summary>

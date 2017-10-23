@@ -67,7 +67,28 @@ namespace PGE
         /// <param name="e"></param>
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            gameManager.MoveViewport();
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                    // North / Up:
+                    gameManager.MoveViewport(EDirection.NORTH);
+                    break;
+
+                case Keys.Left:
+                    // West / Left:
+                    gameManager.MoveViewport(EDirection.WEST);
+                    break;
+
+                case Keys.Down:
+                    // South / Down:
+                    gameManager.MoveViewport(EDirection.SOUTH);
+                    break;
+
+                case Keys.Right:
+                    // East / Right:
+                    gameManager.MoveViewport(EDirection.EAST);
+                    break;
+            }
         }
     }
 }

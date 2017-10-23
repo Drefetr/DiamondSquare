@@ -9,7 +9,7 @@ namespace PGE
     /// <summary>
     /// 
     /// </summary>
-    enum EDirections
+    enum EDirection
     {
         NORTH,
         WEST,
