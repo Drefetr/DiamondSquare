@@ -67,26 +67,28 @@ namespace PGE
         /// </summary>
         public void MoveViewport(EDirection direction)
         {
+            int velocity = 8;
+
             switch (direction)
             {
                 case EDirection.NORTH:
                     // North:
-                    viewport.Top -= Conf.TileHeight;
+                    viewport.Top -= velocity;
                     break;
 
                 case EDirection.WEST:
                     // West:
-                    viewport.Left -= Conf.TileWidth;
+                    viewport.Left -= velocity;
                     break;
 
                 case EDirection.SOUTH:
                     // South:
-                    viewport.Top += Conf.TileWidth;
+                    viewport.Top += velocity;
                     break;
 
                 case EDirection.EAST:
                     // East:
-                    viewport.Left += Conf.TileWidth;
+                    viewport.Left += velocity;
                     break;
             }
         }

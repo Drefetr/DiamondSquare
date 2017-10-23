@@ -7,15 +7,18 @@ using System.Threading.Tasks;
 
 namespace PGE
 {
+    /// <summary>
+    /// Manages display of visible area.
+    /// </summary>
     class Viewport
     {
         /// <summary>
-        /// 
+        /// Height of Viewport (pixels).
         /// </summary>
         int _height;
 
         /// <summary>
-        /// 
+        /// Width of Viewport (pixels).
         /// </summary>
         int _width;
 
@@ -34,6 +37,9 @@ namespace PGE
         /// </summary>
         TileMap terrainMap;
 
+        /// <summary>
+        /// Height of Viewport (pixels).
+        /// </summary>
         public int Height
         {
             get
@@ -55,6 +61,9 @@ namespace PGE
             }            
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int Top
         {
             get
@@ -68,6 +77,9 @@ namespace PGE
             }
         }
 
+        /// <summary>
+        /// Width of Viewport (pixels).
+        /// </summary>
         public int Width
         {
             get
@@ -81,6 +93,8 @@ namespace PGE
         /// </summary>
         /// <param name="g">Graphics context to draw to.</param>
         /// <param name="terrain">Terrain TileMap.</param>
+        /// <param name="width">Width (pixels).</param>
+        /// <param name="height">Height (pixels).</param>
         public Viewport(Graphics g, TileMap terrain, int width, int height)
         {
             _height = height;
@@ -95,26 +109,27 @@ namespace PGE
         /// </summary>
         public void Draw()
         {
-            int columns = Width / 32;
-            int rows = Height / 32;
+            // Calculate columns/rows:
+            int columns = Width / Conf.TileWidth;
+            int rows = Height / Conf.TileHeight;
 
             int leftColumn = location.X / 32;
             int topRow = location.Y / 32;
             int bottomRow = topRow + rows;
             int rightColumn = leftColumn + columns;
 
-            for (int row = topRow; row < bottomRow; row++)
+            for (int row = topRow; row <= bottomRow; row++)
             {
                 // Iterate over each column in player-visible area:
-                for (int column = leftColumn; column < rightColumn; column++)
+                for (int column = leftColumn; column <= rightColumn; column++)
                 {
                     // Calculate offset(s) for smooth-scrolling:
-                    int xOffset = 0;
-                    int yOffset = 0;
+                    int xOffset = Left % Conf.TileWidth;
+                    int yOffset = Top % Conf.TileHeight;
 
                     // Calculate canvas position to draw to:
-                    int x = ((column - leftColumn) * 32) - xOffset;
-                    int y = ((row - topRow) * 32) - yOffset;
+                    int x = ((column - leftColumn) * Conf.TileWidth) - xOffset;
+                    int y = ((row - topRow) * Conf.TileHeight) - yOffset;
 
                     // Fetch & Draw Tile's image at Point(`x`, `y`):
                     Bitmap cellImage = terrainMap.GetCellBitmap(column, row);
