@@ -132,8 +132,8 @@ namespace PGE
             int columns = Width / TileSize;
             int rows = Height / TileSize;
 
-            int leftColumn = location.X / 32;
-            int topRow = location.Y / 32;
+            int leftColumn = location.X / TileSize;
+            int topRow = location.Y / TileSize;
             int bottomRow = topRow + rows;
             int rightColumn = leftColumn + columns;
 
@@ -151,7 +151,7 @@ namespace PGE
                     int y = ((row - topRow) * TileSize) - yOffset;
 
                     // Fetch & Draw Tile's image at Point(`x`, `y`):
-                    Bitmap cellImage = terrainMap.GetCellBitmap(column, row);
+                    //Bitmap cellImage = terrainMap.GetCellBitmap(column, row);
                     Color cellColor = terrainMap.GetCellColor(column, row);
                     SolidBrush cellBrush = new SolidBrush(cellColor);
                     //canvas.DrawImage(cellImage, x, y);

@@ -74,6 +74,26 @@ namespace PGE
         /// <returns></returns>
         public Bitmap GetCellBitmap(int column, int row)
         {
+            if (column > Width)
+            {
+                column -= Width;
+            }
+
+            if (column < 0)
+            {
+                column += Width;
+            }
+
+            if (row > Height)
+            {
+                row -= Height;
+            }
+
+            if (row < 0)
+            {
+                row += Height;
+            }
+
             int tileType = map[row, column];
             Bitmap cellImage = tileSet.GetTileBitmap("" + tileType);
             return cellImage;
@@ -81,8 +101,46 @@ namespace PGE
 
         public Color GetCellColor(int column, int row)
         {
+            if (column > Width)
+            {
+                column -= Width;
+            }
+
+            if (column < 0)
+            {
+                column += Width;
+            }
+
+            if (row > Height)
+            {
+                row -= Height;
+            }
+
+            if (row < 0)
+            {
+                row += Height;
+            }
+
             int tileType = map[row, column];
-            Color cellColor = Color.FromArgb(255, tileType + 100, tileType + 100, tileType + 100);
+            Color cellColor = Color.FromArgb(255, 0, 0, 0);
+            // Water.
+
+            if (tileType >= 20) // Grass:
+            {
+                cellColor = Color.FromArgb(255, 100, 100 + tileType, 100);
+            }
+
+            if (tileType >= 100)
+            {
+                cellColor = Color.FromArgb(255, 222, 222, 222);
+            }
+
+            if (tileType <= 20)
+            {
+                cellColor = Color.FromArgb(255, 0, 0, 50 + (tileType * 4));
+                // Water.
+            }
+
             return cellColor;
         }
     }

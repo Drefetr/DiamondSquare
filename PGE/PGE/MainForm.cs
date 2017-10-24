@@ -108,7 +108,21 @@ namespace PGE
 
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
+            if (e.X <= 32)
+            {
+                gameManager.MoveViewport(EDirection.WEST);
+            }
 
+            if (e.X >= Width - 32)
+            {
+                gameManager.MoveViewport(EDirection.EAST);
+            }
+
+            if (e.Y <= 32)
+                gameManager.MoveViewport(EDirection.NORTH);
+
+            if (e.Y >= Height - 32)
+                gameManager.MoveViewport(EDirection.SOUTH);
         }
 
         private void MainForm_MouseWheel(object sender, MouseEventArgs e)

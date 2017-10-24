@@ -151,13 +151,13 @@ namespace PGE
             int[,] heightMap = new int[mapHeight, mapWidth];
             int[,] map = new int[mapHeight, mapWidth];
 
-            for (int k = 0; k < 8; k++)
+            for (int k = 0; k < 2; k++)
             {
                 // Must be a power of 2:
-                int stepSize = 32;
+                int stepSize = 256;
 
                 // Noise-coefficient: 
-                double scale = 0.337;
+                double scale = 0.666;
 
                 while (stepSize > 1)
                 {
@@ -165,6 +165,7 @@ namespace PGE
                     stepSize /= 2;
                     scale /= 4.0;
                 }
+            }
 
                 // Fill Map:
                 for (int j = 0; j < mapHeight; j++)
@@ -194,7 +195,7 @@ namespace PGE
 
                         map[j, i] = tileType;
                     }
-                }
+                
             }
 
             return map;
