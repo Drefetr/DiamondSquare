@@ -18,6 +18,11 @@ namespace PGE
         int _height;
 
         /// <summary>
+        /// 
+        /// </summary>
+        private int _tileSize;
+
+        /// <summary>
         /// Width of Viewport (pixels).
         /// </summary>
         int _width;
@@ -36,6 +41,19 @@ namespace PGE
         /// Terrain TileMap.
         /// </summary>
         TileMap terrainMap;
+
+        public int TileSize
+        {
+            get
+            {
+                return _tileSize;
+            }
+
+            set
+            {
+                _tileSize = value;
+            }
+        }
 
         /// <summary>
         /// Height of Viewport (pixels).
@@ -98,6 +116,7 @@ namespace PGE
         public Viewport(Graphics g, TileMap terrain, int width, int height)
         {
             _height = height;
+            _tileSize = Conf.TileWidth;
             _width = width;
             canvas = g;
             location = new Point(0, 0);
@@ -110,8 +129,8 @@ namespace PGE
         public void Draw()
         {
             // Calculate columns/rows:
-            int columns = Width / Conf.TileWidth;
-            int rows = Height / Conf.TileHeight;
+            int columns = Width / TileSize;
+            int rows = Height / TileSize;
 
             int leftColumn = location.X / 32;
             int topRow = location.Y / 32;
@@ -124,16 +143,25 @@ namespace PGE
                 for (int column = leftColumn; column <= rightColumn; column++)
                 {
                     // Calculate offset(s) for smooth-scrolling:
-                    int xOffset = Left % Conf.TileWidth;
-                    int yOffset = Top % Conf.TileHeight;
+                    int xOffset = Left % TileSize;
+                    int yOffset = Top % TileSize;
 
                     // Calculate canvas position to draw to:
-                    int x = ((column - leftColumn) * Conf.TileWidth) - xOffset;
-                    int y = ((row - topRow) * Conf.TileHeight) - yOffset;
+                    int x = ((column - leftColumn) * TileSize) - xOffset;
+                    int y = ((row - topRow) * TileSize) - yOffset;
 
                     // Fetch & Draw Tile's image at Point(`x`, `y`):
                     Bitmap cellImage = terrainMap.GetCellBitmap(column, row);
-                    canvas.DrawImage(cellImage, x, y);
+                    Color cellColor = terrainMap.GetCellColor(column, row);
+                    SolidBrush cellBrush = new SolidBrush(cellColor);
+                    //canvas.DrawImage(cellImage, x, y);
+
+                    canvas.FillRectangle(
+                        cellBrush, 
+                        x, 
+                        y, 
+                        TileSize, 
+                        TileSize);
                 }
             }
         }

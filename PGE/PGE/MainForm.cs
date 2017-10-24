@@ -105,5 +105,22 @@ namespace PGE
                     break;
             }
         }
+
+        private void MainForm_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void MainForm_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                gameManager.IncrementTileSize();
+            }
+            else
+            {
+                gameManager.DecrementTileSize();
+            }
+        }
     }
 }

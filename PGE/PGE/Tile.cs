@@ -14,6 +14,8 @@ namespace PGE
         /// </summary>
         Bitmap bitmap;
 
+        Color color;
+
         /// <summary>
         /// 
         /// </summary>
@@ -21,6 +23,7 @@ namespace PGE
         public Tile(string imagePath)
         {
             bitmap = new Bitmap(imagePath);
+            color = Color.FromArgb(255, 123, 255, 255);
         }
 
         /// <summary>
@@ -30,6 +33,11 @@ namespace PGE
         public Bitmap GetBitmap()
         {
             return bitmap;
+        }
+
+        public Color GetColor()
+        {
+            return color;
         }
     }
 }

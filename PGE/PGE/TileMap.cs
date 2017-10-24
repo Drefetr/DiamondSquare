@@ -78,5 +78,12 @@ namespace PGE
             Bitmap cellImage = tileSet.GetTileBitmap("" + tileType);
             return cellImage;
         }
+
+        public Color GetCellColor(int column, int row)
+        {
+            int tileType = map[row, column];
+            Color cellColor = Color.FromArgb(255, tileType + 100, tileType + 100, tileType + 100);
+            return cellColor;
+        }
     }
 }

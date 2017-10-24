@@ -45,5 +45,12 @@ namespace PGE
             Bitmap tileBitmap = tile.GetBitmap();
             return tileBitmap;
         }
+
+        public Color GetTileColor(string index)
+        {
+            Tile tile = tiles[index];
+            Color tileColor = tile.GetColor();
+            return tileColor;
+        }
     }
 }

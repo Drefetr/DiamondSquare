@@ -100,5 +100,15 @@ namespace PGE
         {
 
         }
+
+        public void IncrementTileSize()
+        {
+            viewport.TileSize++;
+        }
+
+        public void DecrementTileSize()
+        {
+            viewport.TileSize--;
+        }
     }
 }
