@@ -126,16 +126,25 @@ namespace PGE
             int green = 0;
             int blue = 0;
 
+            if (tileType >= 8) // Sand:
+            {
+                red = 244 - (tileType * 8);
+                green = 232 - (tileType * 8);
+                blue = 178 - (tileType * 8);
+            }
+
             if (tileType >= 10) // Grass:
             {
+                red = 0;
                 green = tileType * 10;
+                blue = 0;
             }
 
             if (tileType >= 18) // Mountains
             {
-                red = (tileType * 6);
-                green = (tileType * 6);
-                blue = (tileType * 6);
+                red = 255 - (tileType * 6);
+                green = 255 - (tileType * 6);
+                blue = 255 - (tileType * 6);
             }
 
             if (tileType >= 24) // Snow
@@ -145,9 +154,11 @@ namespace PGE
                 blue = 222;
             }
 
-            if (tileType < 10)
+            if (tileType < 8)
             {
+                red = 0;
                 blue = tileType * 24;
+                green = 0;
                 // Water.
             }
 

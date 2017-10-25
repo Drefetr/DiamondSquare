@@ -117,7 +117,7 @@ namespace PGE
                 for (int y = halfStep; y < (maxYTile + halfStep); y += stepSize)
                 {
                     int square = AverageSquare(heightMap, x, y, stepSize);
-                    square += Convert.ToInt32(0 * scale);
+                    square += Convert.ToInt32(r.Next(2) * scale);
                     cyclic(heightMap, y, x, square);
                 }
             }
@@ -127,11 +127,11 @@ namespace PGE
                 for (int y = 0; y < maxYTile; y += stepSize)
                 {
                     int diamondOne = AverageDiamond(heightMap, x + halfStep, y, stepSize);
-                    diamondOne += Convert.ToInt32(0 * scale);
+                    diamondOne += Convert.ToInt32(r.Next(2) * scale);
                     cyclic(heightMap, x + halfStep, y, diamondOne);
 
                     int diamondTwo = AverageDiamond(heightMap, x, y + halfStep, stepSize);
-                    diamondTwo += Convert.ToInt32(0 * scale);
+                    diamondTwo += Convert.ToInt32(r.Next(2) * scale);
                     cyclic(heightMap, x, y + halfStep, diamondTwo);
                 }
             }
@@ -159,19 +159,19 @@ namespace PGE
                 }
             }
 
-            for (int k = 0; k < 2; k++)
+            for (int k = 0; k < 3; k++)
             {
                 // Must be a power of 2:
                 int stepSize = 256;
 
                 // Noise-coefficient: 
-                double scale = 0.988;
+                double scale = 13.37;
 
                 while (stepSize > 1)
                 {
                     DiamondSquare(r, heightMap, stepSize, scale, mapWidth, mapHeight);
                     stepSize /= 2;
-                    scale /= 4.0;
+                    scale /= 2.0;
                 }
             }
 
@@ -184,28 +184,7 @@ namespace PGE
                     for (int column = 0; column < mapWidth; column++)
                     {
                         int tileAltitude = cyclic(heightMap, column, row);
-
-                        int tileType = 1; // Sea
-
-                        if (tileAltitude >= shoreAltitude)
-                            tileType = 2; // Shore.
-
-                        if (tileAltitude >= swampAltitude)
-                            tileType = 10; // Swamp.
-
-                        if (tileAltitude >= palmtreeAltitude)
-                            tileType = 11;
-
-                        if (tileAltitude >= grassAltitude)
-                            tileType = 20; // Grass.
-
-                        if (tileAltitude >= treeAltitude)
-                            tileType = 30;
-
-                        if (tileAltitude >= mountainAltitude)
-                            tileType = 40;
-
-                        map[row, column] = tileType;
+                        map[row, column] = tileAltitude;
                     }
                 
             }
