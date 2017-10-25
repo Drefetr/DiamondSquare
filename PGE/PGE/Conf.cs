@@ -41,8 +41,8 @@ namespace PGE
 
         static Conf()
         {
-            _tileHeight = 16;
-            _tileWidth = 16;
+            _tileHeight = 1;
+            _tileWidth = 1;
         }
     }
 }

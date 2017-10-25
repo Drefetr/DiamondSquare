@@ -122,25 +122,36 @@ namespace PGE
             }
 
             int tileType = map[row, column];
-            Color cellColor = Color.FromArgb(255, 0, 0, 0);
-            // Water.
+            int red = 0;
+            int green = 0;
+            int blue = 0;
 
-            if (tileType >= 20) // Grass:
+            if (tileType >= 10) // Grass:
             {
-                cellColor = Color.FromArgb(255, 100, 100 + tileType, 100);
+                green = tileType * 10;
             }
 
-            if (tileType >= 100)
+            if (tileType >= 18) // Mountains
             {
-                cellColor = Color.FromArgb(255, 222, 222, 222);
+                red = (tileType * 6);
+                green = (tileType * 6);
+                blue = (tileType * 6);
             }
 
-            if (tileType <= 20)
+            if (tileType >= 24) // Snow
             {
-                cellColor = Color.FromArgb(255, 0, 0, 50 + (tileType * 4));
+                red = 222;
+                green = 222;
+                blue = 222;
+            }
+
+            if (tileType < 10)
+            {
+                blue = tileType * 24;
                 // Water.
             }
 
+            Color cellColor = Color.FromArgb(255, red, green, blue);
             return cellColor;
         }
     }

@@ -117,7 +117,7 @@ namespace PGE
                 for (int y = halfStep; y < (maxYTile + halfStep); y += stepSize)
                 {
                     int square = AverageSquare(heightMap, x, y, stepSize);
-                    square += Convert.ToInt32(r.Next(0, 100) * scale);
+                    square += Convert.ToInt32(0 * scale);
                     cyclic(heightMap, y, x, square);
                 }
             }
@@ -127,11 +127,11 @@ namespace PGE
                 for (int y = 0; y < maxYTile; y += stepSize)
                 {
                     int diamondOne = AverageDiamond(heightMap, x + halfStep, y, stepSize);
-                    diamondOne += Convert.ToInt32(r.Next(0, 100) * scale);
+                    diamondOne += Convert.ToInt32(0 * scale);
                     cyclic(heightMap, x + halfStep, y, diamondOne);
 
                     int diamondTwo = AverageDiamond(heightMap, x, y + halfStep, stepSize);
-                    diamondTwo += Convert.ToInt32(r.Next(0, 100) * scale);
+                    diamondTwo += Convert.ToInt32(0 * scale);
                     cyclic(heightMap, x, y + halfStep, diamondTwo);
                 }
             }
@@ -151,13 +151,21 @@ namespace PGE
             int[,] heightMap = new int[mapHeight, mapWidth];
             int[,] map = new int[mapHeight, mapWidth];
 
+            for (int row = 0; row < mapHeight; row++)
+            {
+                for (int column = 0; column < mapWidth; column++)
+                {
+                    heightMap[row, column] = r.Next(0, 32);
+                }
+            }
+
             for (int k = 0; k < 2; k++)
             {
                 // Must be a power of 2:
                 int stepSize = 256;
 
                 // Noise-coefficient: 
-                double scale = 0.666;
+                double scale = 0.988;
 
                 while (stepSize > 1)
                 {
@@ -167,12 +175,16 @@ namespace PGE
                 }
             }
 
+            int minAltitude = 0;
+            int maxAltitude = 255;
+
                 // Fill Map:
-                for (int j = 0; j < mapHeight; j++)
+                for (int row = 0; row < mapHeight; row++)
                 {
-                    for (int i = 0; i < mapWidth; i++)
+                    for (int column = 0; column < mapWidth; column++)
                     {
-                        int tileAltitude = heightMap[j, i];
+                        int tileAltitude = cyclic(heightMap, column, row);
+
                         int tileType = 1; // Sea
 
                         if (tileAltitude >= shoreAltitude)
@@ -193,7 +205,7 @@ namespace PGE
                         if (tileAltitude >= mountainAltitude)
                             tileType = 40;
 
-                        map[j, i] = tileType;
+                        map[row, column] = tileType;
                     }
                 
             }
