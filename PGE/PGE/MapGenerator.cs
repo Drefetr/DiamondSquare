@@ -18,6 +18,9 @@ namespace PGE
         private const int treeAltitude = 30;
         private const int mountainAltitude = 50;
 
+        private const int maxAltitude = 32;
+        private const int minAltitude = 0;
+
         /// <summary>
         /// 
         /// </summary>
@@ -117,8 +120,8 @@ namespace PGE
                 for (int y = halfStep; y < (maxYTile + halfStep); y += stepSize)
                 {
                     int square = AverageSquare(heightMap, x, y, stepSize);
-                    square += Convert.ToInt32(r.Next(2) * scale);
-                    cyclic(heightMap, y, x, square);
+                    square += Convert.ToInt32(r.Next(0, 2) * scale);
+                    cyclic(heightMap, x, y, square);
                 }
             }
 
@@ -127,11 +130,11 @@ namespace PGE
                 for (int y = 0; y < maxYTile; y += stepSize)
                 {
                     int diamondOne = AverageDiamond(heightMap, x + halfStep, y, stepSize);
-                    diamondOne += Convert.ToInt32(r.Next(2) * scale);
+                    diamondOne += Convert.ToInt32(r.Next(0, 2) * scale);
                     cyclic(heightMap, x + halfStep, y, diamondOne);
 
                     int diamondTwo = AverageDiamond(heightMap, x, y + halfStep, stepSize);
-                    diamondTwo += Convert.ToInt32(r.Next(2) * scale);
+                    diamondTwo += Convert.ToInt32(r.Next(0, 2) * scale);
                     cyclic(heightMap, x, y + halfStep, diamondTwo);
                 }
             }
@@ -155,24 +158,27 @@ namespace PGE
             {
                 for (int column = 0; column < mapWidth; column++)
                 {
-                    heightMap[row, column] = r.Next(0, 32);
+                    heightMap[row, column] 
+                        = r.Next(MapGenerator.minAltitude, MapGenerator.maxAltitude + 1);
                 }
             }
 
-            for (int k = 0; k < 3; k++)
+            for (int k = 0; k < 1; k++)
             {
                 // Must be a power of 2:
-                int stepSize = 256;
+                int stepSize = 64;
 
                 // Noise-coefficient: 
-                double scale = 13.37;
+                double scale = 0.777;
 
                 while (stepSize > 1)
                 {
                     DiamondSquare(r, heightMap, stepSize, scale, mapWidth, mapHeight);
                     stepSize /= 2;
-                    scale /= 2.0;
+                    scale /= 4.0;
                 }
+
+                DiamondSquare(r, heightMap, 1, scale, mapWidth, mapHeight);
             }
 
             int minAltitude = 0;
@@ -183,7 +189,7 @@ namespace PGE
                 {
                     for (int column = 0; column < mapWidth; column++)
                     {
-                        int tileAltitude = cyclic(heightMap, column, row);
+                        int tileAltitude = heightMap[row, column];
                         map[row, column] = tileAltitude;
                     }
                 

@@ -126,6 +126,9 @@ namespace PGE
             int green = 0;
             int blue = 0;
 
+            if (tileType < 0)
+                tileType = 0;
+
             if (tileType >= 8) // Sand:
             {
                 red = 244 - (tileType * 8);
