@@ -11,7 +11,7 @@ namespace PGE
     /// </summary>
     class MapGenerator
     {
-        private const int maxAltitude = 32;
+        private const int maxAltitude = 255;
         private const int minAltitude = 0;
 
         /// <summary>
@@ -158,10 +158,8 @@ namespace PGE
                 }
             }
 
-            for (int k = 0; k < 1; k++)
-            {
                 // Must be a power of 2:
-                int stepSize = 64;
+                int stepSize = Conf.StepSize;
 
                 // Noise-coefficient: 
                 double scale = 0.777;
@@ -174,6 +172,24 @@ namespace PGE
                 }
 
                 DiamondSquare(r, heightMap, 1, scale, mapWidth, mapHeight);
+
+
+            // Min/max:
+            double min = MapGenerator.maxAltitude;
+            double max = MapGenerator.minAltitude;
+
+            for (int row = 0; row < mapHeight; row++)
+            {
+                for (int column = 0; column < mapWidth; column++)
+                {
+                    int tileAltitude = heightMap[row, column];
+
+                    if (tileAltitude > max)
+                        max = tileAltitude;
+
+                    if (tileAltitude < min)
+                        min = tileAltitude;
+                }
             }
 
             // Fill Map:
@@ -182,6 +198,8 @@ namespace PGE
                 for (int column = 0; column < mapWidth; column++)
                 {
                     int tileAltitude = heightMap[row, column];
+                    double altNormal = (tileAltitude - min) / (max - min);
+                    altNormal *= MapGenerator.maxAltitude;
                     map[row, column] = tileAltitude;
                 }
             }

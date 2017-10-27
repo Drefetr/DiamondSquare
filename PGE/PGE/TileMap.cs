@@ -129,43 +129,70 @@ namespace PGE
             if (tileType < 0)
                 tileType = 0;
 
-            if (tileType >= 8) // Sand:
+            if (tileType >= 80) // Sand:
             {
-                red = 244 - (tileType * 8);
-                green = 232 - (tileType * 8);
-                blue = 178 - (tileType * 8);
+                red = 244;
+                green = 232;
+                blue = 178;
             }
 
-            if (tileType >= 10) // Grass:
+            if (tileType >= 120) // Grass:
             {
-                red = 0;
-                green = tileType * 10;
-                blue = 0;
+                if (tileType <= 140)
+                {
+                    red = 49;
+                    green = 163;
+                    blue = 84;
+                }
+                else if (tileType <= 160)
+                {
+                    red = 102;
+                    green = 194;
+                    blue = 164;
+                }
+                else if (tileType <= 180)
+                {
+                    red = 178;
+                    blue = 226;
+                    green = 226;
+                }
             }
 
-            if (tileType >= 18) // Mountains
+            if (tileType >= 200) // Mountains
             {
-                red = (tileType * 6);
-                green = (tileType * 6);
-                blue = (tileType * 6);
+                red = -128 + tileType;
+                green = -128 + tileType;
+                blue = -128 + tileType;
             }
 
-            if (tileType >= 24) // Snow
+            if (tileType >= 240) // Snow
             {
                 red = 222;
                 green = 222;
                 blue = 222;
             }
 
-            if (tileType < 8)
+            if (tileType < 80)
             {
                 red = 0;
-                blue = tileType * 24;
+                blue = tileType * 2;
                 green = 0;
                 // Water.
             }
 
+            if (red < 0)
+                red = 0;
+
+            if (blue < 0)
+                blue = 0;
+
+            if (green < 0)
+                green = 0;
+
             Color cellColor = Color.FromArgb(255, red, green, blue);
+
+            //Color cellColor = Color.FromArgb(255, tileType, tileType, tileType);
+
             return cellColor;
         }
     }

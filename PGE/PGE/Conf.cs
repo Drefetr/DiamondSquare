@@ -22,6 +22,10 @@ namespace PGE
     /// </summary>
     class Conf
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        private static readonly int _mapSize;
 
         /// <summary>
         /// 
@@ -31,23 +35,12 @@ namespace PGE
         /// <summary>
         /// 
         /// </summary>
-        private static readonly int _mapSize;
+        private static readonly int _stepSize;
 
         /// <summary>
         /// 
         /// </summary>
         private static readonly int _velocity;
-
-        /// <summary>
-        /// Accessor to `_tileSize`.
-        /// </summary>
-        public static int TileSize
-        {
-            get
-            {
-                return _tileSize;
-            }
-        }
 
         /// <summary>
         /// Accessor to `_mapSize`.
@@ -57,6 +50,28 @@ namespace PGE
             get
             {
                 return _mapSize;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static int StepSize
+        {
+            get
+            {
+                return _stepSize;
+            }
+        }
+
+        /// <summary>
+        /// Accessor to `_tileSize`.
+        /// </summary>
+        public static int TileSize
+        {
+            get
+            {
+                return _tileSize;
             }
         }
 
@@ -71,6 +86,7 @@ namespace PGE
         static Conf()
         {
             _mapSize = 4097;
+            _stepSize = 64;
             _tileSize = 1;
             _velocity = 8;
         }
