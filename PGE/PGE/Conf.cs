@@ -17,32 +17,62 @@ namespace PGE
         EAST
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     class Conf
     {
-        private static readonly int _tileHeight;
 
-        private static readonly int _tileWidth;
+        /// <summary>
+        /// 
+        /// </summary>
+        private static readonly int _tileSize;
 
-        public static int TileHeight
+        /// <summary>
+        /// 
+        /// </summary>
+        private static readonly int _mapSize;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static readonly int _velocity;
+
+        /// <summary>
+        /// Accessor to `_tileSize`.
+        /// </summary>
+        public static int TileSize
         {
             get
             {
-                return _tileHeight;
+                return _tileSize;
             }
         }
 
-        public static int TileWidth
+        /// <summary>
+        /// Accessor to `_mapSize`.
+        /// </summary>
+        public static int MapSize
         {
-            get 
+            get
             {
-                return _tileWidth;
+                return _mapSize;
+            }
+        }
+
+        public static int Velocity
+        {
+            get
+            {
+                return _velocity;
             }
         }
 
         static Conf()
         {
-            _tileHeight = 1;
-            _tileWidth = 1;
+            _mapSize = 4097;
+            _tileSize = 1;
+            _velocity = 8;
         }
     }
 }

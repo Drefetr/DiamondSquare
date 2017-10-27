@@ -11,13 +11,6 @@ namespace PGE
     /// </summary>
     class MapGenerator
     {
-        private const int shoreAltitude = 0;
-        private const int swampAltitude = 10;
-        private const int palmtreeAltitude = 15;
-        private const int grassAltitude = 20;
-        private const int treeAltitude = 30;
-        private const int mountainAltitude = 50;
-
         private const int maxAltitude = 32;
         private const int minAltitude = 0;
 
@@ -149,8 +142,10 @@ namespace PGE
         /// <param name="mapWidth"></param>
         /// <param name="mapHeight"></param>
         /// <returns></returns>
-        public static int[,] NextMap(Random r, int mapWidth, int mapHeight)
+        public static int[,] NextMap(Random r, int mapSize)
         {
+            int mapWidth = mapSize;
+            int mapHeight = mapSize;
             int[,] heightMap = new int[mapHeight, mapWidth];
             int[,] map = new int[mapHeight, mapWidth];
 
@@ -181,18 +176,14 @@ namespace PGE
                 DiamondSquare(r, heightMap, 1, scale, mapWidth, mapHeight);
             }
 
-            int minAltitude = 0;
-            int maxAltitude = 255;
-
-                // Fill Map:
-                for (int row = 0; row < mapHeight; row++)
+            // Fill Map:
+            for (int row = 0; row < mapHeight; row++)
+            {
+                for (int column = 0; column < mapWidth; column++)
                 {
-                    for (int column = 0; column < mapWidth; column++)
-                    {
-                        int tileAltitude = heightMap[row, column];
-                        map[row, column] = tileAltitude;
-                    }
-                
+                    int tileAltitude = heightMap[row, column];
+                    map[row, column] = tileAltitude;
+                }
             }
 
             return map;

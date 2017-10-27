@@ -58,10 +58,10 @@ namespace PGE
         /// Default constructor.
         /// </summary>
         /// <param name="ts">Source TileSet</param>
-        public TileMap(TileSet ts, int[,] tiles, int mapWidth, int mapHeight)
+        public TileMap(TileSet ts, int[,] tiles, int mapSize)
         {
-            _height = mapHeight;
-            _width = mapWidth;
+            _height = mapSize;
+            _width = mapSize;
             map = tiles;
             tileSet = ts;
         }
@@ -145,9 +145,9 @@ namespace PGE
 
             if (tileType >= 18) // Mountains
             {
-                red = 255 - (tileType * 6);
-                green = 255 - (tileType * 6);
-                blue = 255 - (tileType * 6);
+                red = (tileType * 6);
+                green = (tileType * 6);
+                blue = (tileType * 6);
             }
 
             if (tileType >= 24) // Snow

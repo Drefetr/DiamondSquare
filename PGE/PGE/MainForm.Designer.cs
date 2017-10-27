@@ -35,7 +35,7 @@
             // tmrGameLoop
             // 
             this.tmrGameLoop.Enabled = true;
-            this.tmrGameLoop.Interval = 25;
+            this.tmrGameLoop.Interval = 1000;
             this.tmrGameLoop.Tick += new System.EventHandler(this.tmrGameLoop_Tick);
             // 
             // MainForm

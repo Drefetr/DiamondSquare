@@ -30,8 +30,12 @@ namespace PGE
         private Viewport viewport;
 
         /// <summary>
-        /// Default constructor.
+        /// Construcotr.
         /// </summary>
+        /// <param name="r">Seeded random generator.</param>
+        /// <param name="g">Graphics context to draw to.</param>
+        /// <param name="width">Viewport width (pixels).</param>
+        /// <param name="height">Viewport height (pixels).</param>
         public GameManager(Random r, Graphics g, int width, int height)
         {
             canvas = g;
@@ -41,14 +45,11 @@ namespace PGE
             TileSet terrainTileSet = new TileSet("Resources/Tiles");
 
             // Fetch next procedural map:
-            int mapHeight = 2049;
-            int mapWidth = 2049;
-
-            int[,] map = MapGenerator.NextMap(r, mapWidth, mapHeight);
+            int[,] map = MapGenerator.NextMap(r, Conf.MapSize);
 
             // Instantiate terrain TileMap:
             terrainMap 
-                = new TileMap(terrainTileSet, map, mapWidth, mapHeight);
+                = new TileMap(terrainTileSet, map, Conf.MapSize);
 
             // Instantiate Viewport:
             viewport = new Viewport(g, terrainMap, width, height);
@@ -67,45 +68,44 @@ namespace PGE
         /// </summary>
         public void MoveViewport(EDirection direction)
         {
-            int velocity = 8;
-
             switch (direction)
             {
                 case EDirection.NORTH:
                     // North:
-                    viewport.Top -= velocity;
+                    viewport.Top -= Conf.Velocity;
                     break;
 
                 case EDirection.WEST:
                     // West:
-                    viewport.Left -= velocity;
+                    viewport.Left -= Conf.Velocity;
                     break;
 
                 case EDirection.SOUTH:
                     // South:
-                    viewport.Top += velocity;
+                    viewport.Top += Conf.Velocity;
                     break;
 
                 case EDirection.EAST:
                     // East:
-                    viewport.Left += velocity;
+                    viewport.Left += Conf.Velocity;
                     break;
             }
         }
 
         /// <summary>
-        /// Update state.
+        /// 
         /// </summary>
-        public void Update()
-        {
-
-        }
-
         public void IncrementTileSize()
         {
-            viewport.TileSize++;
+            if (viewport.TileSize < 64)
+            {
+                viewport.TileSize++;
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void DecrementTileSize()
         {
             if (viewport.TileSize > 1)

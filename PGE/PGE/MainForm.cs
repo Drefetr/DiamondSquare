@@ -68,7 +68,6 @@ namespace PGE
         /// <param name="e"></param>
         private void tmrGameLoop_Tick(object sender, EventArgs e)
         {
-            gameManager.Update();
             gameManager.Draw();
 
             // Blit buffer(s):

@@ -116,7 +116,7 @@ namespace PGE
         public Viewport(Graphics g, TileMap terrain, int width, int height)
         {
             _height = height;
-            _tileSize = Conf.TileWidth;
+            _tileSize = Conf.TileSize;
             _width = width;
             canvas = g;
             location = new Point(0, 0);
