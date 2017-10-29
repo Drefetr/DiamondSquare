@@ -58,7 +58,7 @@ namespace PGE
 
             // Instantiate GameManager:
             gameManager 
-                = new GameManager(random, backCanvas, Width, Height);
+                = new GameManager(random, backCanvas, 2048, 2048);
         }
 
         /// <summary>
@@ -105,17 +105,13 @@ namespace PGE
             }
         }
 
-        private void MainForm_MouseMove(object sender, MouseEventArgs e)
+        private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.X <= 32)
-            {
                 gameManager.MoveViewport(EDirection.WEST);
-            }
 
             if (e.X >= Width - 32)
-            {
                 gameManager.MoveViewport(EDirection.EAST);
-            }
 
             if (e.Y <= 32)
                 gameManager.MoveViewport(EDirection.NORTH);
@@ -134,6 +130,10 @@ namespace PGE
             {
                 gameManager.DecrementTileSize();
             }
+        }
+
+        private void MainForm_MouseHover(object sender, EventArgs e)
+        {
         }
     }
 }

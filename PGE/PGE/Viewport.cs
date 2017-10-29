@@ -150,18 +150,29 @@ namespace PGE
                     int x = ((column - leftColumn) * TileSize) - xOffset;
                     int y = ((row - topRow) * TileSize) - yOffset;
 
+                    int isoX = x - y;
+                    int isoY = (x + y) / 2;
+
                     // Fetch & Draw Tile's image at Point(`x`, `y`):
-                    //Bitmap cellImage = terrainMap.GetCellBitmap(column, row);
+                    
                     Color cellColor = terrainMap.GetCellColor(column, row);
                     SolidBrush cellBrush = new SolidBrush(cellColor);
-                    //canvas.DrawImage(cellImage, x, y);
+                    
 
-                    canvas.FillRectangle(
-                        cellBrush, 
-                        x, 
-                        y, 
-                        TileSize, 
-                        TileSize);
+                    if (TileSize < 32)
+                    {
+                        canvas.FillRectangle(
+                            cellBrush,
+                            x,
+                            y,
+                            TileSize * 2,
+                            TileSize);
+                    }
+                    else
+                    {
+                        Bitmap cellImage = terrainMap.GetCellBitmap(column, row);
+                        canvas.DrawImage(cellImage, x, y);
+                    }
                 }
             }
         }

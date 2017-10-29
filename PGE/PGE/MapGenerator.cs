@@ -162,7 +162,7 @@ namespace PGE
                 int stepSize = Conf.StepSize;
 
                 // Noise-coefficient: 
-                double scale = 0.777;
+                double scale = 1.777;
 
                 while (stepSize > 1)
                 {

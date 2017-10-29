@@ -35,7 +35,6 @@
             // tmrGameLoop
             // 
             this.tmrGameLoop.Enabled = true;
-            this.tmrGameLoop.Interval = 1000;
             this.tmrGameLoop.Tick += new System.EventHandler(this.tmrGameLoop_Tick);
             // 
             // MainForm
@@ -49,7 +48,8 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
+            this.MouseHover += new System.EventHandler(this.MainForm_MouseHover);
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseWheel);
             this.ResumeLayout(false);
 

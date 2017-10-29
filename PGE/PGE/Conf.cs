@@ -23,14 +23,24 @@ namespace PGE
     class Conf
     {
         /// <summary>
-        /// 
+        /// Map size (tiles) -- {(n^2)+1}.
         /// </summary>
         private static readonly int _mapSize;
 
         /// <summary>
-        /// 
+        /// Initial tile size (pixels).
         /// </summary>
         private static readonly int _tileSize;
+
+        /// <summary>
+        /// Maximum tile size (pixels).
+        /// </summary>
+        private static readonly int _tileSizeMax;
+
+        /// <summary>
+        /// Minimum tile size (pixels).
+        /// </summary>
+        private static readonly int _tileSizeMin;
 
         /// <summary>
         /// 
@@ -54,7 +64,7 @@ namespace PGE
         }
 
         /// <summary>
-        /// 
+        /// Accessor to `_stepSize`.
         /// </summary>
         public static int StepSize
         {
@@ -75,6 +85,31 @@ namespace PGE
             }
         }
 
+        /// <summary>
+        /// Accessor to `_tileSizeMax`.
+        /// </summary>
+        public static int TileSizeMax
+        {
+            get
+            {
+                return _tileSizeMax;
+            }
+        }
+
+        /// <summary>
+        /// Accessor to `_tileSizeMin`.
+        /// </summary>
+        public static int TileSizeMin
+        {
+            get
+            {
+                return _tileSizeMin;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static int Velocity
         {
             get
@@ -85,9 +120,11 @@ namespace PGE
 
         static Conf()
         {
-            _mapSize = 4097;
-            _stepSize = 64;
+            _mapSize = 2049;
+            _stepSize = 128;
             _tileSize = 1;
+            _tileSizeMin = 1;
+            _tileSizeMax = 32;
             _velocity = 8;
         }
     }

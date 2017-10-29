@@ -30,7 +30,7 @@ namespace PGE
         private Viewport viewport;
 
         /// <summary>
-        /// Construcotr.
+        /// Constructor.
         /// </summary>
         /// <param name="r">Seeded random generator.</param>
         /// <param name="g">Graphics context to draw to.</param>
@@ -64,54 +64,50 @@ namespace PGE
         }
 
         /// <summary>
-        /// 
+        /// Move Viewport in `direction`.
         /// </summary>
         public void MoveViewport(EDirection direction)
         {
             switch (direction)
             {
                 case EDirection.NORTH:
-                    // North:
+                    // North / Upwards:
                     viewport.Top -= Conf.Velocity;
                     break;
 
                 case EDirection.WEST:
-                    // West:
+                    // West / Leftwards:
                     viewport.Left -= Conf.Velocity;
                     break;
 
                 case EDirection.SOUTH:
-                    // South:
+                    // South / Downwards:
                     viewport.Top += Conf.Velocity;
                     break;
 
                 case EDirection.EAST:
-                    // East:
+                    // East // Rightwards:
                     viewport.Left += Conf.Velocity;
                     break;
             }
         }
 
         /// <summary>
-        /// 
+        /// Increase tile size within limit (`Conf.TileSizeMax`).
         /// </summary>
         public void IncrementTileSize()
         {
-            if (viewport.TileSize < 64)
-            {
+            if (viewport.TileSize < Conf.TileSizeMax)
                 viewport.TileSize++;
-            }
         }
 
         /// <summary>
-        /// 
+        /// Decrease tile size within limit (`Conf.TileSizeMin`).
         /// </summary>
         public void DecrementTileSize()
         {
-            if (viewport.TileSize > 1)
-            {
+            if (viewport.TileSize > Conf.TileSizeMin)
                 viewport.TileSize--;
-            }
         }
     }
 }
