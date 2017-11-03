@@ -23,11 +23,6 @@ namespace PGE
         private int[,] map;
 
         /// <summary>
-        /// Source TileSet.
-        /// </summary>
-        private TileSet tileSet;
-
-        /// <summary>
         /// Width (tiles).
         /// </summary>
         private int _width;
@@ -58,61 +53,11 @@ namespace PGE
         /// Default constructor.
         /// </summary>
         /// <param name="ts">Source TileSet</param>
-        public TileMap(TileSet ts, int[,] tiles, int mapSize)
+        public TileMap(int[,] tiles, int mapSize)
         {
             _height = mapSize;
             _width = mapSize;
             map = tiles;
-            tileSet = ts;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="column"></param>
-        /// <param name="row"></param>
-        /// <returns></returns>
-        public Bitmap GetCellBitmap(int column, int row)
-        {
-            if (column > Width)
-            {
-                column -= Width;
-            }
-
-            if (column < 0)
-            {
-                column += Width;
-            }
-
-            if (row > Height)
-            {
-                row -= Height;
-            }
-
-            if (row < 0)
-            {
-                row += Height;
-            }
-
-            int tileType = map[row, column];
-
-            if (tileType > 32)
-            {
-                tileType = 1;
-            }
-
-            if (tileType > 64)
-            {
-                tileType = 2;
-            }
-
-            if (tileType <= 32)
-            {
-                tileType = 0;
-            }
-
-            Bitmap cellImage = tileSet.GetTileBitmap("" + tileType);
-            return cellImage;
         }
 
         public Color GetCellColor(int column, int row)

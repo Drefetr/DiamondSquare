@@ -168,11 +168,6 @@ namespace PGE
                             TileSize * 2,
                             TileSize);
                     }
-                    else
-                    {
-                        Bitmap cellImage = terrainMap.GetCellBitmap(column, row);
-                        canvas.DrawImage(cellImage, x, y);
-                    }
                 }
             }
         }

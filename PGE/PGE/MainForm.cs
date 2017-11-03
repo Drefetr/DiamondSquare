@@ -120,18 +120,6 @@ namespace PGE
                 gameManager.MoveViewport(EDirection.SOUTH);
         }
 
-        private void MainForm_MouseWheel(object sender, MouseEventArgs e)
-        {
-            if (e.Delta > 0)
-            {
-                gameManager.IncrementTileSize();
-            }
-            else
-            {
-                gameManager.DecrementTileSize();
-            }
-        }
-
         private void MainForm_MouseHover(object sender, EventArgs e)
         {
         }
