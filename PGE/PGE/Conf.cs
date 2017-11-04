@@ -120,7 +120,7 @@ namespace PGE
 
         static Conf()
         {
-            _mapSize = 4097;
+            _mapSize = 1025;
             _stepSize = 16;
             _tileSize = 1;
             _tileSizeMin = 1;

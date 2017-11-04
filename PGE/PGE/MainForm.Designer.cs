@@ -28,14 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.tmrGameLoop = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
-            // 
-            // tmrGameLoop
-            // 
-            this.tmrGameLoop.Enabled = true;
-            this.tmrGameLoop.Tick += new System.EventHandler(this.tmrGameLoop_Tick);
             // 
             // MainForm
             // 
@@ -47,16 +40,11 @@
             this.Text = "PGE";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
-            this.MouseHover += new System.EventHandler(this.MainForm_MouseHover);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer tmrGameLoop;
     }
 }
 

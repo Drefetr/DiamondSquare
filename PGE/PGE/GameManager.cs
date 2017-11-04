@@ -25,12 +25,7 @@ namespace PGE
         /// <summary>
         /// Terrain TileMap.
         /// </summary>
-        private TileMap terrainMap;
-
-        /// <summary>
-        /// Viewport.
-        /// </summary>
-        private Viewport viewport;
+        private Map terrainMap;
 
         /// <summary>
         /// Constructor.
@@ -49,48 +44,15 @@ namespace PGE
 
             // Instantiate terrain TileMap:
             terrainMap 
-                = new TileMap(mapCells, Conf.MapSize);
-
-            // Instantiate Viewport:
-            viewport = new Viewport(g, terrainMap, width, height);
+                = new Map(canvas, mapCells, Conf.MapSize);
         }
 
         /// <summary>
-        /// Draw to graphics context `canvas` via `viewport`.
+        /// Draw `terrainMap` to graphics context `canvas`.
         /// </summary>
-        public void Draw()
+        public void DrawMap()
         {
-            viewport.Draw();
-        }
-
-        /// <summary>
-        /// Move viewport in `direction`.
-        /// </summary>
-        /// <param name="direction">Direction to move viewport.</param>
-        public void MoveViewport(EDirection direction)
-        {
-            switch (direction)
-            {
-                case EDirection.NORTH:
-                    // North / Upwards:
-                    viewport.Top -= Conf.Velocity;
-                    break;
-
-                case EDirection.WEST:
-                    // West / Leftwards:
-                    viewport.Left -= Conf.Velocity;
-                    break;
-
-                case EDirection.SOUTH:
-                    // South / Downwards:
-                    viewport.Top += Conf.Velocity;
-                    break;
-
-                case EDirection.EAST:
-                    // East / Rightwards:
-                    viewport.Left += Conf.Velocity;
-                    break;
-            }
+            terrainMap.Draw();
         }
     }
 }

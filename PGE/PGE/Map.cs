@@ -10,12 +10,17 @@ namespace PGE
     /// <summary>
     /// 
     /// </summary>
-    class TileMap
+    class Map
     {
         /// <summary>
         /// Height (tiles).
         /// </summary>
         private int _height;
+
+        /// <summary>
+        /// Graphics context to draw to.
+        /// </summary>
+        private Graphics canvas;
 
         /// <summary>
         /// 
@@ -53,11 +58,25 @@ namespace PGE
         /// Default constructor.
         /// </summary>
         /// <param name="ts">Source TileSet</param>
-        public TileMap(int[,] tiles, int mapSize)
+        public Map(Graphics g, int[,] tiles, int mapSize)
         {
             _height = mapSize;
             _width = mapSize;
+            canvas = g;
             map = tiles;
+        }
+
+        public void Draw()
+        {
+            for (int row = 0; row < Height; row++)
+            {
+                for (int column = 0; column < Width; column++)
+                {
+                    Color cellColor = GetCellColor(column, row);
+                    SolidBrush cellBrush = new SolidBrush(cellColor);
+                    canvas.FillRectangle(cellBrush, column, row, 4, 4);
+                }
+            }
         }
 
         public Color GetCellColor(int column, int row)
