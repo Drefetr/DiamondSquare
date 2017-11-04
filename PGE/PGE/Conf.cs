@@ -23,6 +23,16 @@ namespace PGE
     class Conf
     {
         /// <summary>
+        /// 
+        /// </summary>
+        private static readonly int _altitudeMin;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static readonly int _altitudeMax;
+
+        /// <summary>
         /// Map size (tiles) -- {(n^2)+1}.
         /// </summary>
         private static readonly int _mapSize;
@@ -51,6 +61,25 @@ namespace PGE
         /// 
         /// </summary>
         private static readonly int _velocity;
+
+        public static int AltitudeMax
+        {
+            get
+            {
+                return _altitudeMax;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static int AltitudeMin
+        {
+            get
+            {
+                return _altitudeMin;
+            }
+        }
 
         /// <summary>
         /// Accessor to `_mapSize`.
@@ -120,6 +149,8 @@ namespace PGE
 
         static Conf()
         {
+            _altitudeMin = 16;
+            _altitudeMax = 224;
             _mapSize = 1025;
             _stepSize = 16;
             _tileSize = 1;

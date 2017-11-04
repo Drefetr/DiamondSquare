@@ -74,7 +74,14 @@ namespace PGE
                 {
                     Color cellColor = GetCellColor(column, row);
                     SolidBrush cellBrush = new SolidBrush(cellColor);
-                    canvas.FillRectangle(cellBrush, column, row, 4, 4);
+
+                    // Draw cell --
+                    canvas.FillRectangle(
+                        cellBrush, 
+                        column, 
+                        row, 
+                        Conf.TileSize, 
+                        Conf.TileSize);
                 }
             }
         }
@@ -115,12 +122,6 @@ namespace PGE
             red = g;
             green = g;
             blue = g;
-
-            if (tileType < 32)
-            {
-                blue = 127 + (tileType * 2);
-                green = 127 + (tileType * 2);
-            }
 
             Color cellColor = Color.FromArgb(255, red, green, blue);
 

@@ -11,11 +11,9 @@ namespace PGE
     /// </summary>
     class MapGenerator
     {
-        private const int maxAltitude = 255;
-        private const int minAltitude = 0;
-
         /// <summary>
-        /// 
+        /// Calculate value of diamond centroid formed by `x`, `y` and 
+        /// `stepSize`.
         /// </summary>
         /// <param name="heightMap"></param>
         /// <param name="x"></param>
@@ -34,7 +32,8 @@ namespace PGE
         }
 
         /// <summary>
-        /// 
+        /// Calculate value of square centroid formed by `x`, `y` and 
+        /// `stepSize`.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -51,6 +50,13 @@ namespace PGE
             return average;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="heightMap"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         private static int cyclic(int[,] heightMap, int x, int y)
         {
             if (y > 1024)
@@ -77,6 +83,13 @@ namespace PGE
             return value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="heightMap"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="v"></param>
         private static void cyclic(int[,] heightMap, int x, int y, int v)
         {
             if (y > 1024)
@@ -102,6 +115,16 @@ namespace PGE
             heightMap[y, x] = v;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="heightMap"></param>
+        /// <param name="stepSize"></param>
+        /// <param name="scale"></param>
+        /// <param name="mapWidth"></param>
+        /// <param name="mapHeight"></param>
+        /// <returns></returns>
         private static int[,] DiamondSquare(Random r, int[,] heightMap, int stepSize, double scale, int mapWidth, int mapHeight)
         {
             int halfStep = stepSize / 2;
@@ -154,7 +177,7 @@ namespace PGE
                 for (int column = 0; column < mapWidth; column++)
                 {
                     heightMap[row, column] 
-                        = r.Next(MapGenerator.minAltitude, MapGenerator.maxAltitude + 1);
+                        = r.Next(Conf.AltitudeMin, Conf.AltitudeMax + 1);
                 }
             }
 
@@ -175,8 +198,8 @@ namespace PGE
 
 
             // Min/max:
-            double min = MapGenerator.maxAltitude;
-            double max = MapGenerator.minAltitude;
+            double min = Conf.AltitudeMin;
+            double max = Conf.AltitudeMax;
 
             for (int row = 0; row < mapHeight; row++)
             {
@@ -199,7 +222,7 @@ namespace PGE
                 {
                     int tileAltitude = heightMap[row, column];
                     double altNormal = (tileAltitude - min) / (max - min);
-                    altNormal *= MapGenerator.maxAltitude;
+                    altNormal *= Conf.AltitudeMax;
                     map[row, column] = tileAltitude;
                 }
             }

@@ -23,7 +23,7 @@ namespace PGE
         private Random random;
 
         /// <summary>
-        /// Terrain TileMap.
+        /// Terrain Map.
         /// </summary>
         private Map terrainMap;
 
@@ -34,7 +34,7 @@ namespace PGE
         /// <param name="g">Graphics context to draw to.</param>
         /// <param name="width">Viewport width (pixels).</param>
         /// <param name="height">Viewport height (pixels).</param>
-        public GameManager(Random r, Graphics g, int width, int height)
+        public GameManager(Random r, Graphics g)
         {
             canvas = g;
             random = r;
@@ -42,9 +42,8 @@ namespace PGE
             // Fetch next procedural map:
             int[,] mapCells = MapGenerator.NextMap(r, Conf.MapSize);
 
-            // Instantiate terrain TileMap:
-            terrainMap 
-                = new Map(canvas, mapCells, Conf.MapSize);
+            // Instantiate map:
+            terrainMap = new Map(canvas, mapCells, Conf.MapSize);
         }
 
         /// <summary>

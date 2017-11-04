@@ -13,7 +13,7 @@ namespace PGE
     public partial class MainForm : Form
     {
         /// <summary>
-        /// 
+        /// Graphics context to draw to.
         /// </summary>
         Graphics canvas;
 
@@ -23,7 +23,7 @@ namespace PGE
         GameManager gameManager;
 
         /// <summary>
-        /// Seeded random generation.
+        /// Seeded random generator.
         /// </summary>
         Random random;
 
@@ -42,12 +42,22 @@ namespace PGE
             // Instantiate back/front buffers:
             canvas = CreateGraphics();
 
+            // Instantiate seeded generator:
             random = new Random(420);
 
             // Instantiate GameManager:
             gameManager 
-                = new GameManager(random, canvas, 2048, 2048);
+                = new GameManager(random, canvas);
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainForm_Paint(object sender, PaintEventArgs e)
+        {
+            // Draw map --
             gameManager.DrawMap();
         }
     }
