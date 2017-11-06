@@ -15,7 +15,7 @@ namespace PGE
         /// Calculate value of diamond centroid formed by `x`, `y` and 
         /// `stepSize`.
         /// </summary>
-        /// <param name="heightMap"></param>
+        /// <param name="heightMap">Height map to work upon.</param>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="stepSize"></param>
@@ -23,60 +23,59 @@ namespace PGE
         private static int AverageDiamond(int[,] heightMap, int x, int y, int stepSize)
         {
             int halfStep = stepSize / 2;
-            int N = cyclic(heightMap, x, y - halfStep);
-            int E = cyclic(heightMap, x + halfStep, y);
-            int S = cyclic(heightMap, x, y + halfStep);
-            int W = cyclic(heightMap, x - halfStep, y);
+            int N = fetch(heightMap, x, y - halfStep);
+            int E = fetch(heightMap, x + halfStep, y);
+            int S = fetch(heightMap, x, y + halfStep);
+            int W = fetch(heightMap, x - halfStep, y);
             int average = (N + E + S + W) / 4;
             return average;
         }
 
         /// <summary>
-        /// Calculate value of square centroid formed by `x`, `y` and 
-        /// `stepSize`.
+        /// Calculate value of square centroid formed by `x`, `y` and `stepSize`.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="stepSize"></param>
+        /// <param name="x">Left-edge position on x-axis.</param>
+        /// <param name="y">Top-edge position on y-axis.</param>
+        /// <param name="stepSize">Step size (Tiles).</param>
         /// <returns></returns>
         private static int AverageSquare(int[,] heightMap, int x, int y, int stepSize)
         {
             int halfStep = stepSize / 2;
-            int NW = cyclic(heightMap, x - halfStep, y - halfStep);
-            int SE = cyclic(heightMap, x + halfStep, y + halfStep);
-            int SW = cyclic(heightMap, x - halfStep, y + halfStep);
-            int NE = cyclic(heightMap, x + halfStep, y - halfStep);
+            int NW = fetch(heightMap, x - halfStep, y - halfStep);
+            int SE = fetch(heightMap, x + halfStep, y + halfStep);
+            int SW = fetch(heightMap, x - halfStep, y + halfStep);
+            int NE = fetch(heightMap, x + halfStep, y - halfStep);
             int average = (NE + SE + SW + NW) / 4;
             return average;
         }
 
         /// <summary>
-        /// 
+        /// Fetch value of `heightMap` cell at position defined by (`x`, `y`).
         /// </summary>
-        /// <param name="heightMap"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="heightMap">Height map to work upon.</param>
+        /// <param name="x">Position on x-axis.</param>
+        /// <param name="y">Position on y-axis.</param>
         /// <returns></returns>
-        private static int cyclic(int[,] heightMap, int x, int y)
+        private static int fetch(int[,] heightMap, int x, int y)
         {
-            if (y > 1024)
+            if (y >= Conf.MapSize)
             {
-                y -= 1024;
+                y -= Conf.MapSize;
             }
 
             if (y < 0)
             {
-                y += 1024;
+                y += Conf.MapSize;
             }
 
-            if (x > 1024)
+            if (x >= Conf.MapSize)
             {
-                x -= 1024;
+                x -= Conf.MapSize;
             }
 
             if (x < 0)
             {
-                x += 1024;
+                x += Conf.MapSize;
             }
 
             int value = heightMap[y, x];
@@ -90,26 +89,26 @@ namespace PGE
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="v"></param>
-        private static void cyclic(int[,] heightMap, int x, int y, int v)
+        private static void fetch(int[,] heightMap, int x, int y, int v)
         {
-            if (y > 1024)
+            if (y >= Conf.MapSize)
             {
-                y -= 1024;
+                y -= Conf.MapSize;
             }
 
             if (y < 0)
             {
-                y += 1024;
+                y += Conf.MapSize;
             }
 
-            if (x > 1024)
+            if (x >= Conf.MapSize)
             {
-                x -= 1024;
+                x -= Conf.MapSize;
             }
 
             if (x < 0)
             {
-                x += 1024;
+                x += Conf.MapSize;
             }
 
             heightMap[y, x] = v;
@@ -137,7 +136,7 @@ namespace PGE
                 {
                     int square = AverageSquare(heightMap, x, y, stepSize);
                     square += Convert.ToInt32(r.Next(0, 2) * scale);
-                    cyclic(heightMap, x, y, square);
+                    fetch(heightMap, x, y, square);
                 }
             }
 
@@ -147,11 +146,11 @@ namespace PGE
                 {
                     int diamondOne = AverageDiamond(heightMap, x + halfStep, y, stepSize);
                     diamondOne += Convert.ToInt32(r.Next(0, 2) * scale);
-                    cyclic(heightMap, x + halfStep, y, diamondOne);
+                    fetch(heightMap, x + halfStep, y, diamondOne);
 
                     int diamondTwo = AverageDiamond(heightMap, x, y + halfStep, stepSize);
                     diamondTwo += Convert.ToInt32(r.Next(0, 2) * scale);
-                    cyclic(heightMap, x, y + halfStep, diamondTwo);
+                    fetch(heightMap, x, y + halfStep, diamondTwo);
                 }
             }
 
