@@ -23,10 +23,10 @@ namespace PGE
         private static int AverageDiamond(CyclicArray<int> heightMap, int x, int y, int stepSize)
         {
             int halfStep = stepSize / 2;
-            int N = fetch(heightMap, x, y - halfStep);
-            int E = fetch(heightMap, x + halfStep, y);
-            int S = fetch(heightMap, x, y + halfStep);
-            int W = fetch(heightMap, x - halfStep, y);
+            int N = heightMap[x, y - halfStep];
+            int E = heightMap[x + halfStep, y];
+            int S = heightMap[x, y + halfStep];
+            int W = heightMap[x - halfStep, y];
             int average = (N + E + S + W) / 4;
             return average;
         }
@@ -41,37 +41,12 @@ namespace PGE
         private static int AverageSquare(CyclicArray<int> heightMap, int x, int y, int stepSize)
         {
             int halfStep = stepSize / 2;
-            int NW = fetch(heightMap, x - halfStep, y - halfStep);
-            int SE = fetch(heightMap, x + halfStep, y + halfStep);
-            int SW = fetch(heightMap, x - halfStep, y + halfStep);
-            int NE = fetch(heightMap, x + halfStep, y - halfStep);
+            int NW = heightMap[x - halfStep, y - halfStep];
+            int SE = heightMap[x + halfStep, y + halfStep];
+            int SW = heightMap[x - halfStep, y + halfStep];
+            int NE = heightMap[x + halfStep, y - halfStep];
             int average = (NE + SE + SW + NW) / 4;
             return average;
-        }
-
-        /// <summary>
-        /// Fetch value of `heightMap` cell at position defined by (`x`, `y`).
-        /// </summary>
-        /// <param name="heightMap">Height map to work upon.</param>
-        /// <param name="x">Position on x-axis.</param>
-        /// <param name="y">Position on y-axis.</param>
-        /// <returns></returns>
-        private static int fetch(CyclicArray<int> heightMap, int x, int y)
-        {
-            int value = heightMap[y, x];
-            return value;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="heightMap"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="v"></param>
-        private static void fetch(CyclicArray<int> heightMap, int x, int y, int v)
-        {
-            heightMap[y, x] = v;
         }
 
         /// <summary>
@@ -96,7 +71,7 @@ namespace PGE
                 {
                     int square = AverageSquare(heightMap, x, y, stepSize);
                     square += Convert.ToInt32(r.Next(0, 2) * scale);
-                    fetch(heightMap, x, y, square);
+                    heightMap[x, y] = square;
                 }
             }
 
@@ -106,11 +81,11 @@ namespace PGE
                 {
                     int diamondOne = AverageDiamond(heightMap, x + halfStep, y, stepSize);
                     diamondOne += Convert.ToInt32(r.Next(0, 2) * scale);
-                    fetch(heightMap, x + halfStep, y, diamondOne);
+                    heightMap[x + halfStep, y] = diamondOne;
 
                     int diamondTwo = AverageDiamond(heightMap, x, y + halfStep, stepSize);
                     diamondTwo += Convert.ToInt32(r.Next(0, 2) * scale);
-                    fetch(heightMap, x, y + halfStep, diamondTwo);
+                    heightMap[x, y + halfStep] = diamondTwo;
                 }
             }
 
