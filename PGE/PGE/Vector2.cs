@@ -80,6 +80,16 @@ namespace PGE
         }
 
         /// <summary>
+        /// Overload the indexing operator.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public double this[int index]
+        {
+            get { return 0 == (index / 2) ? X : Y; }
+        }
+
+        /// <summary>
         /// Default constructor.
         /// </summary>
         /// <param name="x">Magnitude on x-axis.</param>

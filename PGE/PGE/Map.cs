@@ -25,7 +25,7 @@ namespace PGE
         /// <summary>
         /// 
         /// </summary>
-        private int[,] map;
+        private CyclicArray<int> map;
 
         /// <summary>
         /// Width (tiles).
@@ -58,7 +58,7 @@ namespace PGE
         /// Default constructor.
         /// </summary>
         /// <param name="ts">Source TileSet</param>
-        public Map(Graphics g, int[,] tiles, int mapSize)
+        public Map(Graphics g, CyclicArray<int> tiles, int mapSize)
         {
             _height = mapSize;
             _width = mapSize;

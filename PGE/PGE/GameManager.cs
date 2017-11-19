@@ -40,7 +40,7 @@ namespace PGE
             random = r;
 
             // Fetch next procedural map:
-            int[,] mapCells = MapGenerator.NextMap(r, Conf.MapSize);
+            CyclicArray<int> mapCells = MapGenerator.NextMap(r, Conf.MapSize);
 
             // Instantiate map:
             terrainMap = new Map(canvas, mapCells, Conf.MapSize);

@@ -69,7 +69,7 @@ namespace PGE
         }
 
         /// <summary>
-        /// 
+        /// Default construcotr.
         /// </summary>
         /// <param name="v"></param>
         /// <param name="cuttingDimension"></param>
@@ -81,16 +81,24 @@ namespace PGE
             _vector = vector;
         }
 
+        /// <summary>
+        /// Insert.
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <param name="node"></param>
+        /// <param name="cuttingDimension"></param>
+        /// <returns></returns>
         public MapNode Insert(Vector2 vector, MapNode node, int cuttingDimension)
         {
             if (null == node)
             {
-                node = new MapNode(vector, cuttingDimension);            }
+                node = new MapNode(vector, cuttingDimension);
+            }
             else if (vector == node.Vector)
             {
-                // dupe.
+                // dupe. throw err.
             }
-            else if (vector.X > node.Vector.X) // (Actually test v. CD)
+            else if (vector[cuttingDimension] > node.Vector[cuttingDimension])
             {
                 cuttingDimension = (cuttingDimension + 1) % Conf.Dimensions;
                 node.Left = Insert(vector, node.Left, cuttingDimension);

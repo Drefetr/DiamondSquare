@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PGE
 {
     /// <summary>
-    /// 
+    /// Encapsulates map generation via the DiamondSquare algorithm.
     /// </summary>
     class MapGenerator
     {
@@ -20,7 +20,7 @@ namespace PGE
         /// <param name="y"></param>
         /// <param name="stepSize"></param>
         /// <returns></returns>
-        private static int AverageDiamond(int[,] heightMap, int x, int y, int stepSize)
+        private static int AverageDiamond(CyclicArray<int> heightMap, int x, int y, int stepSize)
         {
             int halfStep = stepSize / 2;
             int N = fetch(heightMap, x, y - halfStep);
@@ -38,7 +38,7 @@ namespace PGE
         /// <param name="y">Top-edge position on y-axis.</param>
         /// <param name="stepSize">Step size (Tiles).</param>
         /// <returns></returns>
-        private static int AverageSquare(int[,] heightMap, int x, int y, int stepSize)
+        private static int AverageSquare(CyclicArray<int> heightMap, int x, int y, int stepSize)
         {
             int halfStep = stepSize / 2;
             int NW = fetch(heightMap, x - halfStep, y - halfStep);
@@ -56,28 +56,8 @@ namespace PGE
         /// <param name="x">Position on x-axis.</param>
         /// <param name="y">Position on y-axis.</param>
         /// <returns></returns>
-        private static int fetch(int[,] heightMap, int x, int y)
+        private static int fetch(CyclicArray<int> heightMap, int x, int y)
         {
-            if (y >= Conf.MapSize)
-            {
-                y -= Conf.MapSize;
-            }
-
-            if (y < 0)
-            {
-                y += Conf.MapSize;
-            }
-
-            if (x >= Conf.MapSize)
-            {
-                x -= Conf.MapSize;
-            }
-
-            if (x < 0)
-            {
-                x += Conf.MapSize;
-            }
-
             int value = heightMap[y, x];
             return value;
         }
@@ -89,28 +69,8 @@ namespace PGE
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="v"></param>
-        private static void fetch(int[,] heightMap, int x, int y, int v)
+        private static void fetch(CyclicArray<int> heightMap, int x, int y, int v)
         {
-            if (y >= Conf.MapSize)
-            {
-                y -= Conf.MapSize;
-            }
-
-            if (y < 0)
-            {
-                y += Conf.MapSize;
-            }
-
-            if (x >= Conf.MapSize)
-            {
-                x -= Conf.MapSize;
-            }
-
-            if (x < 0)
-            {
-                x += Conf.MapSize;
-            }
-
             heightMap[y, x] = v;
         }
 
@@ -124,7 +84,7 @@ namespace PGE
         /// <param name="mapWidth"></param>
         /// <param name="mapHeight"></param>
         /// <returns></returns>
-        private static int[,] DiamondSquare(Random r, int[,] heightMap, int stepSize, double scale, int mapWidth, int mapHeight)
+        private static CyclicArray<int> DiamondSquare(Random r, CyclicArray<int> heightMap, int stepSize, double scale, int mapWidth, int mapHeight)
         {
             int halfStep = stepSize / 2;
             int maxXTile = mapWidth;
@@ -164,12 +124,13 @@ namespace PGE
         /// <param name="mapWidth"></param>
         /// <param name="mapHeight"></param>
         /// <returns></returns>
-        public static int[,] NextMap(Random r, int mapSize)
+        public static CyclicArray<int> NextMap(Random r, int mapSize)
         {
             int mapWidth = mapSize;
             int mapHeight = mapSize;
-            int[,] heightMap = new int[mapHeight, mapWidth];
-            int[,] map = new int[mapHeight, mapWidth];
+            //int[,] heightMap = new int[mapHeight, mapWidth];
+            CyclicArray<int> heightMap = new CyclicArray<int>();
+            CyclicArray<int> map = new CyclicArray<int>();
 
             for (int row = 0; row < mapHeight; row++)
             {
