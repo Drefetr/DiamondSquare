@@ -33,6 +33,11 @@ namespace PGE
         private static readonly int _altitudeMax;
 
         /// <summary>
+        /// 
+        /// </summary>
+        private static readonly int _dimensions;
+
+        /// <summary>
         /// Map size (tiles) -- {(n^2)+1}.
         /// </summary>
         private static readonly int _mapSize;
@@ -78,6 +83,14 @@ namespace PGE
             get
             {
                 return _altitudeMin;
+            }
+        }
+
+        public static int Dimensions
+        {
+            get
+            {
+                return _dimensions;
             }
         }
 
@@ -151,6 +164,7 @@ namespace PGE
         {
             _altitudeMin = 16;
             _altitudeMax = 224;
+            _dimensions = 2;
             _mapSize = 1025;
             _stepSize = 16;
             _tileSize = 1;
