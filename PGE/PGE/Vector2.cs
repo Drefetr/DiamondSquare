@@ -54,7 +54,7 @@ namespace PGE
         }
 
         /// <summary>
-        /// Substract vector `a` from vector `b`; i.e. sum vector `a` and the
+        /// Subtract vector `a` from vector `b`; i.e. sum vector `a` and the
         /// negation of vector `b`.
         /// </summary>
         /// <param name="a"></param>
@@ -76,6 +76,32 @@ namespace PGE
         {
             double x_i = -v.X;
             double y_i = -v.Y;
+            return new Vector2(x_i, y_i);
+        }
+
+        /// <summary>
+        /// Calculate the product of vector `v` and the double `d`.
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        public static Vector2 operator *(Vector2 v, double d)
+        {
+            double x_i = v.X * d;
+            double y_i = v.Y * d;
+            return new Vector2(x_i, y_i);
+        }
+
+        /// <summary>
+        /// Calculate the product of double `d` and the vector `v`.
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public static Vector2 operator *(double d, Vector2 v)
+        {
+            double x_i = v.X * d;
+            double y_i = v.Y * d;
             return new Vector2(x_i, y_i);
         }
 

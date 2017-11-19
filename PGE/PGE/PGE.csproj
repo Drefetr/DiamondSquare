@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Conf.cs" />
     <Compile Include="CyclicArray.cs" />
+    <Compile Include="DiamondSquare.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
